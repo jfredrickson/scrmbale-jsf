@@ -16,6 +16,10 @@
                 </h:column>
             </h:dataTable>
 
+            <ui:repeat value="#{game.letters}" var="letter">
+                #{letter}
+            </ui:repeat>
+            
             <h:inputText id="wordInputField" value="#{game.wordInput}" />
 
             <h:commandButton value="Submit" action="#{game.submitWord}" />

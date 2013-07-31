@@ -20,17 +20,21 @@ public class Game {
         currentPuzzle = puzzleRepository.getPuzzle();
     }
 
-    public boolean enterGuess(String guess) {
+    public void enterGuess(String guess) {
         Iterator<Word> wordsIter = currentPuzzle.getWords().iterator();
         while (wordsIter.hasNext()) {
             Word word = wordsIter.next();
             if (!word.isDiscovered() && word.getText().equalsIgnoreCase(guess)) {
                 word.setDiscovered(true);
                 incrementScore(word.getText().length() * 100);
-                return true;
+                return;
             }
         }
-        return false;
+
+    }
+
+    public boolean isCurrentPuzzleComplete() {
+        return currentPuzzle.isComplete();
     }
 
     private void incrementScore(int amount) {

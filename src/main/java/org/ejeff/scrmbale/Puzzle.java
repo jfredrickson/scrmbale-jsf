@@ -1,20 +1,23 @@
 package org.ejeff.scrmbale;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 
 public class Puzzle {
 
     private String keyLetters;
-    private char[] letters;
+    private List<String> letters;
     private Set<Word> words;
     private String recentEntry;
 
     public Puzzle(String keyLetters, Set<Word> words) {
         this.keyLetters = keyLetters;
-        this.letters = keyLetters.toCharArray();
+        this.letters = Arrays.asList(keyLetters.split(""));
         this.words = words;
         this.recentEntry = null;
+        shuffleLetters();
     }
 
     public boolean isComplete() {
@@ -30,7 +33,11 @@ public class Puzzle {
         return keyLetters;
     }
 
-    public char[] getLetters() {
+    public void shuffleLetters() {
+        Collections.shuffle(letters);
+    }
+
+    public List<String> getLetters() {
         return letters;
     }
 
