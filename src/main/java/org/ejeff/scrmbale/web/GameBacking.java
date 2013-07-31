@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -22,13 +23,14 @@ public class GameBacking implements Serializable {
 
     private String wordInput;
 
-    public GameBacking() {
+    @PostConstruct
+    public void initGameBacking() {
         game = new Game();
     }
 
     public String submitWord() {
         game.guess(wordInput);
-        if (game.isCurrentRoundComplete()) {
+        if (game.isCurrentPuzzleComplete()) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Complete!", "Complete!"));
         }
         return null;
@@ -78,6 +80,6 @@ public class GameBacking implements Serializable {
     }
 
     public boolean isRoundComplete() {
-        return game.isCurrentRoundComplete();
+        return game.isCurrentPuzzleComplete();
     }
 }

@@ -38,7 +38,7 @@ public class Game {
         currentPuzzle.shuffleLetters();
     }
 
-    public boolean isCurrentRoundComplete() {
+    public boolean isCurrentPuzzleComplete() {
         return currentPuzzle.isComplete();
     }
 
@@ -47,13 +47,10 @@ public class Game {
     }
 
     public void nextRound() {
+        completedPuzzles.add(currentPuzzle);
         currentRound++;
         currentPuzzle = puzzleRepository.getPuzzle(completedPuzzles);
-    }
-
-    public void endRound() {
-        completedPuzzles.add(currentPuzzle);
-        currentPuzzle = null;
+        System.out.println("starting next round with puzzle: " + currentPuzzle);
     }
 
     public Set<Word> getWords() {
