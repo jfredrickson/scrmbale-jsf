@@ -1,7 +1,7 @@
 package org.ejeff.scrmbale;
 
 import java.util.Collection;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
@@ -11,7 +11,7 @@ public class SimplePuzzleRepository implements PuzzleRepository {
     private Map<String, Puzzle> puzzles;
 
     public SimplePuzzleRepository() {
-        puzzles = new HashMap<String, Puzzle>();
+        puzzles = new LinkedHashMap<String, Puzzle>();
 
         Set<Word> words1 = new LinkedHashSet<Word>();
         words1.add(new Word("REDDER"));
