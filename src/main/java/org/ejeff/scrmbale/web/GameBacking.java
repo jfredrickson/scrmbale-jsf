@@ -56,4 +56,8 @@ public class GameBacking implements Serializable {
     public int getScore() {
         return game.getScore();
     }
+
+    public int getRoundNumber() {
+        return game.getCurrentRound();
+    }
 }
