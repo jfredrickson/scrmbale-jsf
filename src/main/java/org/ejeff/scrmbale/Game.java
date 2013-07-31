@@ -23,10 +23,9 @@ public class Game {
         Iterator<Word> wordsIter = currentPuzzle.getWords().iterator();
         while (wordsIter.hasNext()) {
             Word word = wordsIter.next();
-            if (word.getText().equalsIgnoreCase(guess)) {
+            if (!word.isDiscovered() && word.getText().equalsIgnoreCase(guess)) {
                 word.setDiscovered(true);
-                // TODO: Scoring based on time?
-                incrementScore(word.getText().length());
+                incrementScore(word.getText().length() * 100);
                 return true;
             }
         }
