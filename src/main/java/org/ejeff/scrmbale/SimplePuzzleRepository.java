@@ -2,7 +2,7 @@ package org.ejeff.scrmbale;
 
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -13,7 +13,7 @@ public class SimplePuzzleRepository implements PuzzleRepository {
     public SimplePuzzleRepository() {
         puzzles = new HashMap<String, Puzzle>();
 
-        Set<Word> words1 = new HashSet<Word>();
+        Set<Word> words1 = new LinkedHashSet<Word>();
         words1.add(new Word("EXTERN"));
         words1.add(new Word("EXERT"));
         words1.add(new Word("ENTER"));
@@ -30,7 +30,7 @@ public class SimplePuzzleRepository implements PuzzleRepository {
         words1.add(new Word("ERE"));
         Puzzle puzzle1 = new Puzzle("EENRTX", words1);
 
-        Set<Word> words2 = new HashSet<Word>();
+        Set<Word> words2 = new LinkedHashSet<Word>();
         words2.add(new Word("BACKUP"));
         words2.add(new Word("PUCK"));
         words2.add(new Word("PACK"));
