@@ -7,7 +7,14 @@
     <ui:define name="content">
 
         <h:form>
-
+            <p>Score: #{game.score}</p>
+            
+            <h:dataTable value="#{game.words}" var="word">
+                <h:column>
+                    <h:outputText value="#{word}"/>
+                </h:column>
+            </h:dataTable>
+            
             <h:inputText value="#{game.wordInput}"/>
             
             <h:commandButton value="Submit" action="#{game.submitWord}"/>
