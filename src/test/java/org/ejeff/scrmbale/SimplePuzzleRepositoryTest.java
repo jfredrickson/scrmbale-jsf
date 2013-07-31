@@ -31,7 +31,12 @@ public class SimplePuzzleRepositoryTest {
         exclusions.add(puzzle2);
 
         Puzzle puzzle3 = repo.getPuzzle(exclusions);
-        Assert.assertNull(puzzle3);
+        Assert.assertNotNull(puzzle3);
+        Assert.assertEquals(6, puzzle3.getKeyLetters().length());
+        exclusions.add(puzzle3);
+
+        Puzzle nonexistentPuzzle = repo.getPuzzle(exclusions);
+        Assert.assertNull(nonexistentPuzzle);
     }
 
 }
