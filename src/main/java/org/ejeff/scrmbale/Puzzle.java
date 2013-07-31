@@ -17,6 +17,15 @@ public class Puzzle {
         this.recentEntry = null;
     }
 
+    public boolean isComplete() {
+        for (Word word : words) {
+            if (!word.isDiscovered()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public String getKeyLetters() {
         return keyLetters;
     }

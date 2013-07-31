@@ -32,4 +32,13 @@ public class PuzzleTest {
         Assert.assertEquals(3, words.size());
     }
 
+    @Test
+    public void testComplete() {
+        Assert.assertFalse(puzzle.isComplete());
+        for (Word word : puzzle.getWords()) {
+            word.setDiscovered(true);
+        }
+        Assert.assertTrue(puzzle.isComplete());
+    }
+
 }
