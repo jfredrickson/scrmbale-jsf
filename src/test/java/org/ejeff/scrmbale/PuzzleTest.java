@@ -1,6 +1,7 @@
 package org.ejeff.scrmbale;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.junit.Assert;
@@ -23,6 +24,12 @@ public class PuzzleTest {
     @Test
     public void testKeyLetters() {
         Assert.assertEquals("AAAAAA", puzzle.getKeyLetters());
+    }
+
+    @Test
+    public void testLetters() {
+        List<String> letters = puzzle.getLetters();
+        Assert.assertEquals(6, letters.size());
     }
 
     @Test

@@ -2,6 +2,7 @@ package org.ejeff.scrmbale;
 
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 public class Game {
@@ -17,23 +18,27 @@ public class Game {
         score = 0;
         currentRound = 0;
         completedPuzzles = new HashSet<Puzzle>();
-        currentPuzzle = puzzleRepository.getPuzzle();
+        nextRound();
     }
 
-    public void enterGuess(String guess) {
+    public boolean guess(String guess) {
         Iterator<Word> wordsIter = currentPuzzle.getWords().iterator();
         while (wordsIter.hasNext()) {
             Word word = wordsIter.next();
             if (!word.isDiscovered() && word.getText().equalsIgnoreCase(guess)) {
                 word.setDiscovered(true);
-                incrementScore(word.getText().length() * 100);
-                return;
+                incrementScore(guess.length() * 100);
+                return true;
             }
         }
-
+        return false;
     }
 
-    public boolean isCurrentPuzzleComplete() {
+    public void shuffle() {
+        currentPuzzle.shuffleLetters();
+    }
+
+    public boolean isCurrentRoundComplete() {
         return currentPuzzle.isComplete();
     }
 
@@ -41,15 +46,22 @@ public class Game {
         score += amount;
     }
 
-    public Puzzle startRound() {
+    public void nextRound() {
         currentRound++;
         currentPuzzle = puzzleRepository.getPuzzle(completedPuzzles);
-        return currentPuzzle;
     }
 
     public void endRound() {
         completedPuzzles.add(currentPuzzle);
         currentPuzzle = null;
+    }
+
+    public Set<Word> getWords() {
+        return currentPuzzle.getWords();
+    }
+
+    public List<String> getLetters() {
+        return currentPuzzle.getLetters();
     }
 
     public int getScore() {
@@ -59,4 +71,5 @@ public class Game {
     public int getCurrentRound() {
         return currentRound;
     }
+
 }

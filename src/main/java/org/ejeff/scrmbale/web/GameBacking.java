@@ -10,7 +10,6 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 import org.ejeff.scrmbale.Game;
-import org.ejeff.scrmbale.Puzzle;
 import org.ejeff.scrmbale.Word;
 
 @ManagedBean(name = "game")
@@ -20,25 +19,28 @@ public class GameBacking implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Game game;
-    private Puzzle currentPuzzle;
 
     private String wordInput;
 
     public GameBacking() {
         game = new Game();
-        currentPuzzle = game.startRound();
     }
 
     public String submitWord() {
-        game.enterGuess(wordInput);
-        if (game.isCurrentPuzzleComplete()) {
+        game.guess(wordInput);
+        if (game.isCurrentRoundComplete()) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Complete!", "Complete!"));
         }
         return null;
     }
 
+    public String nextRound() {
+        game.nextRound();
+        return null;
+    }
+
     public String shuffle() {
-        currentPuzzle.shuffleLetters();
+        game.shuffle();
         return null;
     }
 
@@ -52,7 +54,7 @@ public class GameBacking implements Serializable {
 
     public List<String> getWords() {
         List<String> words = new LinkedList<String>();
-        for (Word word : currentPuzzle.getWords()) {
+        for (Word word : game.getWords()) {
             if (word.isDiscovered()) {
                 words.add(word.getText());
             } else {
@@ -72,6 +74,10 @@ public class GameBacking implements Serializable {
     }
 
     public List<String> getLetters() {
-        return currentPuzzle.getLetters();
+        return game.getLetters();
+    }
+
+    public boolean isRoundComplete() {
+        return game.isCurrentRoundComplete();
     }
 }

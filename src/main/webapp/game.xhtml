@@ -19,14 +19,21 @@
             <ui:repeat value="#{game.letters}" var="letter">
                 #{letter}
             </ui:repeat>
-            
-            <h:inputText id="wordInputField" value="#{game.wordInput}" />
 
-            <h:commandButton value="Submit" action="#{game.submitWord}" />
+            <h:panelGrid rendered="#{!game.roundComplete}">
+                <h:inputText id="wordInputField" value="#{game.wordInput}" />
+                <h:commandButton value="Submit" action="#{game.submitWord}">
+                    <f:ajax render="gameForm" execute="@form" />
+                </h:commandButton>
+            </h:panelGrid>
+
+            <h:panelGrid rendered="#{game.roundComplete}">
+                <h:commandButton value="Start Next Round" action="#{game.nextRound}" />
+            </h:panelGrid>
+
+            <script>document.getElementById('gameForm:wordInputField').focus();</script>
 
         </h:form>
-
-        <script>document.getElementById('gameForm:wordInputField').focus();</script>
 
     </ui:define>
 

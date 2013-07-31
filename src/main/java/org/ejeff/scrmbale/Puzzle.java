@@ -1,5 +1,6 @@
 package org.ejeff.scrmbale;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -10,13 +11,14 @@ public class Puzzle {
     private String keyLetters;
     private List<String> letters;
     private Set<Word> words;
-    private String recentEntry;
 
     public Puzzle(String keyLetters, Set<Word> words) {
         this.keyLetters = keyLetters;
-        this.letters = Arrays.asList(keyLetters.split(""));
+        this.letters = new ArrayList<String>();
+        for (char c : keyLetters.toCharArray()) {
+            letters.add(Character.toString(c));
+        }
         this.words = words;
-        this.recentEntry = null;
         shuffleLetters();
     }
 
@@ -43,10 +45,6 @@ public class Puzzle {
 
     public Set<Word> getWords() {
         return words;
-    }
-
-    public String getRecentEntry() {
-        return recentEntry;
     }
 
     @Override
