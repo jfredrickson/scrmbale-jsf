@@ -14,7 +14,7 @@ public class Game {
     private Puzzle currentPuzzle;
 
     public Game() {
-        puzzleRepository = new SimplePuzzleRepository();
+        puzzleRepository = new FilePuzzleRepository();
         score = 0;
         currentRound = 0;
         completedPuzzles = new HashSet<Puzzle>();

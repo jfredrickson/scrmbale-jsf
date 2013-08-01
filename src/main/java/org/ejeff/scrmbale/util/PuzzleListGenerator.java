@@ -19,6 +19,7 @@ public class PuzzleListGenerator {
 
     public static void main(String[] args) {
         File dictionaryFile = new File("src/main/resources/dictionary.txt");
+        // File dictionaryFile = new File("src/test/resources/PuzzleListGeneratorTestDictionary.txt");
         File puzzlesFile = new File("src/main/resources/puzzles.txt");
         if (!dictionaryFile.exists()) {
             System.out.println("Dictionary file doesn't exist: " + dictionaryFile.getAbsolutePath());
@@ -69,14 +70,24 @@ public class PuzzleListGenerator {
                 System.out.println("Finding puzzles for key: " + key);
                 List<String> puzzleWords = new LinkedList<String>();
                 for (String word : words) {
-                    char[] chars = word.toCharArray();
-                    boolean match = true;
-                    for (char c : chars) {
-                        if (key.indexOf(c) == -1) {
-                            match = false;
+                    char[] keyChars = key.toCharArray();
+                    char[] wordChars = word.toCharArray();
+                    int matches = 0;
+                    for (char wc : wordChars) {
+                        boolean match = false;
+                        int keyIndex = 0;
+                        while (!match && keyIndex < keyChars.length) {
+                            if (wc == keyChars[keyIndex]) {
+                                keyChars[keyIndex] = '\0';
+                                match = true;
+                                matches++;
+                            }
+                            keyIndex++;
                         }
                     }
-                    if (match) puzzleWords.add(word);
+                    if (matches == word.length()) {
+                        puzzleWords.add(word);
+                    }
                 }
                 if (puzzleWords.size() >= 4) {
                     Collections.sort(puzzleWords, new Comparator<String>() {
