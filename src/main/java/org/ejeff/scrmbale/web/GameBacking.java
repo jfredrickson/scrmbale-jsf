@@ -38,6 +38,7 @@ public class GameBacking implements Serializable {
 
     public String nextRound() {
         game.nextRound();
+        wordInput = "";
         return null;
     }
 
