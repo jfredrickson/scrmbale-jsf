@@ -16,22 +16,31 @@
                 </h:column>
             </h:dataTable>
 
-            <ui:repeat value="#{game.letters}" var="letter">
-                #{letter}
-            </ui:repeat>
+            <h:panelGrid columns="2" rendered="#{!game.roundComplete}">
 
-            <h:panelGrid rendered="#{!game.roundComplete}">
-                <h:inputText id="wordInputField" value="#{game.wordInput}" />
-                <h:commandButton value="Submit" action="#{game.submitWord}">
+                <h:panelGroup id="letters">
+                    <ui:repeat value="#{game.letters}" var="letter">
+                        #{letter}
+                    </ui:repeat>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:commandButton value="Shuffle" action="#{game.shuffle}">
+                        <f:ajax render="letters" onevent="focusOnInput();" />
+                    </h:commandButton>
+                </h:panelGroup>
+
+                <h:inputText id="wordInputField" value="#{game.wordInput}" onkeypress="if (event.keyCode == 13) { document.getElementById('gameForm:submit').click(); return false; }" />
+                <h:commandButton id="submit" value="Submit" action="#{game.submitWord}">
                     <f:ajax render="gameForm" execute="@form" />
                 </h:commandButton>
+
             </h:panelGrid>
 
             <h:panelGrid rendered="#{game.roundComplete}">
                 <h:commandButton value="Start Next Round" action="#{game.nextRound}" />
             </h:panelGrid>
 
-            <script>document.getElementById('gameForm:wordInputField').focus();</script>
+            <script>function focusOnInput() { document.getElementById('gameForm:wordInputField').focus(); }; focusOnInput();</script>
 
         </h:form>
 
