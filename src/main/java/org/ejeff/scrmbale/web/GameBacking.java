@@ -5,10 +5,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
 
 import org.ejeff.scrmbale.Game;
 import org.ejeff.scrmbale.Word;
@@ -30,9 +28,6 @@ public class GameBacking implements Serializable {
 
     public String submitWord() {
         game.guess(wordInput);
-        if (game.isCurrentPuzzleComplete()) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Complete!", "Complete!"));
-        }
         return null;
     }
 
