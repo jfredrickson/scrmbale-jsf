@@ -22,14 +22,15 @@
                     <ui:repeat value="#{game.letters}" var="letter">
                         #{letter}
                     </ui:repeat>
+                    <script>document.getElementById('gameForm:wordInputField').focus();</script>
                 </h:panelGroup>
                 <h:panelGroup>
-                    <h:commandButton value="Shuffle" action="#{game.shuffle}">
-                        <f:ajax render="letters" onevent="focusOnInput();" />
+                    <h:commandButton id="shuffle" value="Shuffle" action="#{game.shuffle}">
+                        <f:ajax render="letters" execute="@form" />
                     </h:commandButton>
                 </h:panelGroup>
 
-                <h:inputText id="wordInputField" value="#{game.wordInput}" onkeypress="if (event.keyCode == 13) { document.getElementById('gameForm:submit').click(); return false; }" />
+                <h:inputText id="wordInputField" value="#{game.wordInput}" onkeypress="processInput();" />
                 <h:commandButton id="submit" value="Submit" action="#{game.submitWord}">
                     <f:ajax render="gameForm" execute="@form" />
                 </h:commandButton>
@@ -40,7 +41,14 @@
                 <h:commandButton value="Start Next Round" action="#{game.nextRound}" />
             </h:panelGrid>
 
-            <script>function focusOnInput() { document.getElementById('gameForm:wordInputField').focus(); }; focusOnInput();</script>
+            <script>
+                function processInput() {
+                	console.log(event.keyCode);
+                    if (event.keyCode == 13) { document.getElementById('gameForm:submit').click(); return false; }
+                    if (event.keyCode == 32) { document.getElementById('gameForm:shuffle').click(); return false; }
+                }
+                document.getElementById('gameForm:wordInputField').focus();
+            </script>
 
         </h:form>
 
