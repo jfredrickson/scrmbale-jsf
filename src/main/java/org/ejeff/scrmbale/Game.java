@@ -50,7 +50,6 @@ public class Game {
         completedPuzzles.add(currentPuzzle);
         currentRound++;
         currentPuzzle = puzzleRepository.getPuzzle(completedPuzzles);
-        System.out.println("starting next round with puzzle: " + currentPuzzle);
     }
 
     public Set<Word> getWords() {
